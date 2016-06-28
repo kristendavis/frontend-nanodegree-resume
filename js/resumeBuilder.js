@@ -6,7 +6,7 @@ This is empty on purpose! Your code to build the resume will go here.
 var bio = {
   "name":"Kristen Davis",
   "role" : "Web Developer",
-  "contactInfo": {"phone" : "678-485-2387",
+  "contacts": {"phone" : "678-485-2387",
                    "email" : "davischie@gmail.com",
                    "linkedin" : "www.linkedin.com/in/kristen-davis-b0b60711b",
                    "github" : "kristendavis",
@@ -159,4 +159,4 @@ projects.display = function() {
 
 projects.display();
 
-$("mapDiv").append(googleMap);
+$("#mapDiv").append(googleMap);
