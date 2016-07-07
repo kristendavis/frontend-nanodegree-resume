@@ -44,7 +44,7 @@ var HTMLprojectImage = '<img src="%data%">';
 
 var HTMLschoolStart = '<div class="education-entry"></div>';
 var HTMLschoolName = '<a href="#">%data%';
-var HTMLschoolDegree = ' -- %data%</a>';
+var HTMLschoolDegree = ' - %data%</a>';
 var HTMLschoolDates = '<div class="date-text">%data%</div>';
 var HTMLschoolLocation = '<div class="location-text">%data%</div>';
 var HTMLschoolMajor = '<em><br>Major: %data%</em>';
@@ -52,7 +52,7 @@ var HTMLschoolMajor = '<em><br>Major: %data%</em>';
 var HTMLonlineClasses = '<h3>Online Classes</h3>';
 var HTMLonlineTitle = '<a href="#">%data%';
 var HTMLonlineSchool = ' - %data%</a>';
-var HTMLonlineDates = '<div class="date-text">%data%</div>';
+var HTMLonlineDates = '<div class="date-text">%data%</div><br>';
 var HTMLonlineURL = '<br><a href="#">%data%</a>';
 
 var internationalizeButton = '<button>Internationalize</button>';
@@ -116,7 +116,6 @@ function initializeMap() {
   */
   map = new google.maps.Map(document.querySelector('#map'), mapOptions);
 
-
   /*
   locationFinder() returns an array of every location string from the JSONs
   written for bio, education, and work.
@@ -153,6 +152,7 @@ function initializeMap() {
   placeData is the object returned from search results containing information
   about a single location.
   */
+
   function createMapMarker(placeData) {
 
     // The next lines save location data from the search result object to local variables
@@ -171,15 +171,27 @@ function initializeMap() {
     // infoWindows are the little helper windows that open when you click
     // or hover over a pin on a map. They usually contain more information
     // about a location.
+    var contentString = '<b>' + name + '</b>';
+    var locationIcons = {
+      "Lawrenceville, GA, USA": "<img src=images/gcpsLocationIcon.jpg>",
+      "Athens, GA, USA": "<img src=images/ugaLocationIcon.jpg>",
+      "Atlanta, GA, USA": "<img src=images/homeLocationIcon.png>",
+      "Sugar Hill, GA, USA": "<img src=images/TutoringCenterLocationIcon.png>"
+    };
+    
     var infoWindow = new google.maps.InfoWindow({
-      content: name
+      content: locationIcons[name] + "<br>" + contentString
     });
 
     // hmmmm, I wonder what this is about...
     google.maps.event.addListener(marker, 'click', function() {
       // your code goes here!
+      infoWindow.open(map, marker);
     });
 
+    google.maps.event.addListener(map, 'click', function() {
+      infoWindow.close();
+    });
     // this is where the pin actually gets added to the map.
     // bounds.extend() takes in a map location object
     bounds.extend(new google.maps.LatLng(lat, lon));
@@ -187,6 +199,7 @@ function initializeMap() {
     map.fitBounds(bounds);
     // center the map
     map.setCenter(bounds.getCenter());
+
   }
 
   /*
@@ -231,7 +244,6 @@ function initializeMap() {
   // pinPoster(locations) creates pins on the map for each location in
   // the locations array
   pinPoster(locations);
-
 }
 
 /*

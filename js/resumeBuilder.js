@@ -23,13 +23,15 @@ var work = {
         "title": "Tutor",
         "dates": "2014-2015",
         "location": "Sugar Hill, Georgia",
-        "description": "Tutoring students K-12 in Language Arts, Math and Reading"
+        "description": "Tutoring students K-12 in Language Arts, Math and Reading",
+        "url": "http://sugarhill.tutoringcenter.com/"
     }, {
         "employer": "Gwinnett County Public Schools",
         "title": "Teacher",
         "dates": "2008-2014",
         "location": "Lawrenceville, Georgia",
-        "description": "Teaching grades K-5, implementing curriculum using instructional technology"
+        "description": "Teaching grades K-5, implementing curriculum using instructional technology",
+        "url": "http://publish.gwinnett.k12.ga.us/gcps/home/public"
   }]
 };
 
@@ -37,28 +39,29 @@ var education = {
   "schools": [{
         "name": "University of Georgia",
         "location": "Athens, Georgia",
-        "degree": "BSEd",
-        "major": "Early Childhood Education",
-        "gradDate": "2008"
+        "degree": "B.S.Ed.",
+        "majors": "Early Childhood Education",
+        "dates": "2006-2008",
+        "url": "http://www.uga.edu"
     }],
     "onlineCourses": [{
-        "school": "Udacity",
         "title": "Introduction to Programming",
+        "school": "Udacity",
         "dates": "2016",
         "url": "https://www.udacity.com/course/intro-to-programming-nanodegree--nd000"
     }, {
-        "school": "Codecademy",
         "title": "Ruby",
+        "school": "Codecademy",
         "dates": "2015",
         "url": "https://www.codecademy.com/learn/ruby"
     }, {
-        "school": "Codecademy",
         "title": "HTML & CSS",
+        "school": "Codecademy",
         "dates": "2015",
         "url": "https://www.codecademy.com/learn/web"
     }, {
-        "school": "Codecademy",
         "title": "Learn the Command Line",
+        "school": "Codecademy",
         "dates": "2015",
         "url": "https://www.codecademy.com/learn/learn-the-command-line"
     }]
@@ -68,27 +71,48 @@ var projects = {
   "projects": [{
     "title": "Make a Web Page",
     "dates": "March 2016",
-    "description": "A web page of notes from my Introduction to Programming course",
-    "images": ["images/p1i1.jpg", "images/p1i2.jpg"]
+    "description": "A web page of notes from an Introduction to Programming course complete with a clickable Table of Contents",
+    "images": ["images/p1i1.jpg", "images/p1i2.jpg"],
+    "github": "https://github.com/kristendavis/intro-to-prog-site"
   }, {
     "title": "Code Your Own Quiz",
     "dates": "April 2016",
-    "description": "A fill-in-the-blank quiz created using Python as a study guide",
-    "images": ["images/p2i1.jpg", "images/p2i2.jpg", "images/p2i3.jpg"]
+    "description": "A fill-in-the-blank quiz created as a study guide using Python",
+    "images": ["images/p2i1.jpg", "images/p2i2.jpg", "images/p2i3.jpg"],
+    "github": "https://github.com/kristendavis/fill-in-blanks-quiz"
   }, {
     "title": "Movie Website",
     "dates": "May 2016",
-    "description": "A website that includes some of my favorite movies and their trailers",
-    "images": ["images/p3i1.jpg", "images/p3i2.jpg", "images/p3i3.jpg"]
+    "description": "A website that includes some of my favorite movies. Movie trailers pop up when the movie poster is clicked.",
+    "images": ["images/p3i1.jpg", "images/p3i3.jpg"],
+    "github": "https://github.com/kristendavis/movie-website"
   }]
 };
 
 var formattedName = HTMLheaderName.replace("%data%", bio.name);
 var formattedRole = HTMLheaderRole.replace("%data%", bio.role);
-
+var formattedbioPic = HTMLbioPic.replace("%data%", bio.picture);
+var formattedwelcomeMsg = HTMLwelcomeMsg.replace("%data%", bio.welcome);
 $("#header").prepend(formattedRole);
 $("#header").prepend(formattedName);
+$("#header").append(formattedbioPic);
+$("#header").append(formattedwelcomeMsg);
 
+bio.contacts.display = function (){
+  formattedMobile = HTMLmobile.replace("%data%", bio.contacts.phone);
+  formattedEmail = HTMLemail.replace("%data%", bio.contacts.email);
+  formattedLocation = HTMLlocation.replace("%data%", bio.contacts.location);
+  $("#topContacts").append(formattedMobile);
+  $("#topContacts").append(formattedEmail);
+  $("#topContacts").append(formattedLocation);
+  formattedLinkedin = HTMLcontactGeneric.replace("%data%", bio.contacts.linkedin);
+  formattedLinkedin = formattedLinkedin.replace("%contact%", "LinkedIn");
+  formattedGithub = HTMLgithub.replace("%data%", bio.contacts.github);
+  $("#footerContacts").append(formattedLinkedin);
+  $("#footerContacts").append(formattedGithub);
+};
+
+bio.contacts.display();
 
 if (bio["skills"].length > 0) {
   $("#header").append(HTMLskillsStart);
@@ -103,6 +127,7 @@ var displayWork = function() {
     for (job in work.jobs) {
       $("#workExperience").append(HTMLworkStart);
       var formattedEmployer = HTMLworkEmployer.replace("%data%", work.jobs[job].employer);
+      formattedEmployer = formattedEmployer.replace("#", work.jobs[job].url);
       var formattedTitle = HTMLworkTitle.replace("%data%", work.jobs[job].title);
       var formattedEmployerTitle = formattedEmployer + formattedTitle;
       var formattedDates = HTMLworkDates.replace("%data%", work.jobs[job].dates);
@@ -114,7 +139,7 @@ var displayWork = function() {
       $(".work-entry:last").append(formattedDescription);
     }
   }
-}
+};
 
 displayWork();
 
@@ -144,6 +169,7 @@ projects.display = function() {
     for (project in projects.projects) {
       $("#projects").append(HTMLprojectStart);
       var formattedTitle = HTMLprojectTitle.replace("%data%", projects.projects[project].title);
+      formattedTitle = formattedTitle.replace("#", projects.projects[project].github);
       var formattedDates = HTMLprojectDates.replace("%data%", projects.projects[project].dates);
       var formattedDescription = HTMLprojectDescription.replace("%data%", projects.projects[project].description);
       $(".project-entry:last").append(formattedTitle);
@@ -158,5 +184,42 @@ projects.display = function() {
 };
 
 projects.display();
+
+education.display = function() {
+  if (education.schools.length > 0) {
+    for (school in education.schools) {
+      $("#education").append(HTMLschoolStart);
+      var formattedName = HTMLschoolName.replace("%data%", education.schools[school].name);
+      formattedName = formattedName.replace("#", education.schools[school].url);
+      var formattedDegree = HTMLschoolDegree.replace("%data%", education.schools[school].degree);
+      var formattedNameDegree = formattedName + formattedDegree;
+      var formattedDates = HTMLschoolDates.replace("%data%", education.schools[school].dates);
+      var formattedLocation = HTMLschoolLocation.replace("%data%", education.schools[school].location);
+      var formattedMajors = HTMLschoolMajor.replace("%data%", education.schools[school].majors);
+      $(".education-entry:last").append(formattedNameDegree);
+      $(".education-entry:last").append(formattedDates);
+      $(".education-entry:last").append(formattedLocation);
+      $(".education-entry:last").append(formattedMajors);
+    }
+    if (education.onlineCourses.length > 0) {
+      $("#education").append(HTMLonlineClasses);
+      for(course in education.onlineCourses) {
+        $("#education").append(HTMLschoolStart);
+        var formattedTitle = HTMLonlineTitle.replace("%data%", education.onlineCourses[course].title);
+        formattedTitle = formattedTitle.replace("#", education.onlineCourses[course].url);
+        var formattedSchool = HTMLonlineSchool.replace("%data%", education.onlineCourses[course].school);
+        var formattedTitleSchool = formattedTitle + formattedSchool;
+        var formattedDates = HTMLonlineDates.replace("%data%", education.onlineCourses[course].dates);
+        var formattedURL = HTMLonlineURL.replace("%data%", education.onlineCourses[course].url);
+        $(".education-entry:last").append(formattedTitleSchool);
+        $(".education-entry:last").append(formattedDates);
+        // $(".education-entry:last").append(formattedURL);
+        // figure out how to link the url with the course title along with other urls
+      }
+    }
+  }
+}
+
+education.display();
 
 $("#mapDiv").append(googleMap);
