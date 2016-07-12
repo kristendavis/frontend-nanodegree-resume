@@ -104,7 +104,8 @@ Start here! initializeMap() is called when page is loaded.
 */
 function initializeMap() {
 
-  var locations;
+  var locations,
+      infoWindow;
 
   var mapOptions = {
     disableDefaultUI: true
@@ -154,7 +155,7 @@ function initializeMap() {
   */
 
   function createMapMarker(placeData) {
-
+    console.log(placeData);
     // The next lines save location data from the search result object to local variables
     var lat = placeData.geometry.location.lat();  // latitude from the place service
     var lon = placeData.geometry.location.lng();  // longitude from the place service
@@ -179,7 +180,7 @@ function initializeMap() {
       "Sugar Hill, GA, USA": "<img src=images/TutoringCenterLocationIcon.png>"
     };
     
-    var infoWindow = new google.maps.InfoWindow({
+    infoWindow = new google.maps.InfoWindow({
       content: locationIcons[name] + "<br>" + contentString
     });
 
