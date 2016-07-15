@@ -26,7 +26,7 @@ h6 {
 
 h1 {
   font-size: 40px;
-  color: #f5a623;
+  color: #9dc72d;
   line-height: 48px;
   display: inline;
 }
@@ -100,16 +100,17 @@ a {
 }
 
 #skills-h3 {
-  color: #f5ae23;
+  color: #9dc73d;
   display: none;
 }
 
 .orange {
-  background-color: #f5ae23;
+  background-color: #9dc73d;
 }
 
 .orange-text {
-  color: #f5ae23;
+  /*color: #f5ae23;*/
+  color: #9dc73d;
 }
 
 .white-text {
@@ -142,7 +143,7 @@ a {
 }
 
 .center-content {
-  padding: 2.5% 5%;
+  padding: 3% 5%;
 }
 
 ul {
@@ -211,4 +212,9 @@ span {
   .biopic {
     display: block;
   }
+}
+
+.navbar {
+  margin-bottom: 0px;
+  font-weight: bold;
 }
