@@ -72,7 +72,7 @@ var education = {
         'name': 'University of Georgia',
         'location': 'Athens, Georgia',
         'degree': 'B.S.Ed.',
-        'majors': 'Early Childhood Education',
+        'majors': ['Early Childhood Education'],
         'dates': '2006-2008',
         'url': 'http://www.uga.edu'
     }],
